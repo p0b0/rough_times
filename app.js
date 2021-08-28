@@ -4,62 +4,39 @@ const express = require('express');
 const app = express();
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-
-// mazi me to env file pou petaei error pros to paron
-
-// const host = process.env.TR_HOST;
-// const port = process.env.TR_PORT;
-// const secure = process.env.TR_SEC;
-// const user = process.env.TR_USER;
-// const pass = process.env.TR_PASS;
-
-// console.log(host, port, secure, user, pass);
+const PDFJS = require('pdfjs-dist');
+// const utils = require('./util/utils');
 
 
-// const transporter = nodemailer.createTransport({
-//     host: host,
-//     port: port,
-//     secure: secure, 
-//     auth: {
-//       user: user, 
-//       pass: pass, 
-//     },
-//   });
+const host = process.env.TR_HOST;
+const port = process.env.TR_PORT;
+const secure = process.env.TR_SEC;
+const user = process.env.TR_USER;
+const pass = process.env.TR_PASS;
 
-// Xwris to env opws leitourgouse prin
 
+// still without tranfering mailer to utils
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.office365.com",
-    port: 587,
-    secure: false, 
+    host: host,
+    port: port,
+    secure: secure, 
     auth: {
-      user: "d_darv@hotmail.gr", 
-      pass: "ksddgsnt1234", 
+      user: user, 
+      pass: pass, 
     },
   });
 
 
   transporter.verify(function(error, success) {
     if (error) {
-      console.log(error);
+      console.log(error.stack);
     } else {
       console.log("Server is ready to take our messages");
     }
   });
 
 
- 
-
-
-//   transporter.sendMail(message, (err, suc)=>{
-//       if (err) {
-//           console.log(err)
-//       } else {
-//         console.log("message has been sent")
-//       }
-    
-//   })
 
 
 app.set('view engine', 'ejs');
@@ -83,24 +60,30 @@ app.get("/about", (req, res)=> {
 })
 
 
-
 app.get("/contact" , (req, res)=> {
     res.render('contact')
 })
 
 app.post("/contact" , (req, res)=> {
-  // console.log(req.body);
+  
   const {message} = req.body;
 
   const readyMessage = {
-    from: "d_darv@hotmail.gr",
-    to: "d_darv@hotmail.gr",
+    from: user,
+    to: user,
     subject: "Got a contact form from website",
     text: message,
     
   };
 
-  // console.log(readyMessage);
+  utils.sendEmail(readyMessage, (err)=> {
+    if (err) {
+      res.send(err)
+    } 
+    else {
+      res.redirect("/works")
+    }
+  })
 
   transporter.sendMail(readyMessage, (err, suc)=>{
       if (err) {
@@ -111,7 +94,6 @@ app.post("/contact" , (req, res)=> {
     
   })
 
-  res.redirect("/works")
 })
 
 app.get("/shop" , (req, res)=> {
