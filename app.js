@@ -41,6 +41,12 @@ var path = require('path');
 
 var comicPath = path.join(__dirname, 'pdfs');
 
+var pdfMap = {
+    one: 'multipage.pdf',
+    two: 'pdf-test.pdf',
+    three: 'third.pdf'
+};
+
 app.set('view engine', 'ejs');
 
 
@@ -105,9 +111,11 @@ app.get("/shop" , (req, res)=> {
     res.render("shop")
 })
 
-app.get('/comic', (req, res)=> {
-
-    fs.readFile(comicPath+'/multipage.pdf', function (err,data) {
+app.get('/comic/:id', (req, res)=> {
+    var issueNumber = req.params.id;
+    //needs to be checked
+    // var fileName = pdfMap.issueNumber;
+    fs.readFile(comicPath+'/'+ fileName, function (err,data) {
         res.contentType("application/pdf");
         res.send(data);
     })
