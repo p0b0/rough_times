@@ -47,6 +47,19 @@ var pdfMap = {
     three: 'third.pdf'
 };
 
+function getFilename(id, next){
+    if (id == 'one'){
+        name = pdfMap.one
+    }
+    if (id == 'two'){
+        name = pdfMap.two
+    }
+    if (id == 'three'){
+        name = pdfMap.three
+    }
+    return next(name);
+}
+
 app.set('view engine', 'ejs');
 
 
@@ -113,12 +126,15 @@ app.get("/shop" , (req, res)=> {
 
 app.get('/comic/:id', (req, res)=> {
     var issueNumber = req.params.id;
-    //needs to be checked
-    // var fileName = pdfMap.issueNumber;
-    fs.readFile(comicPath+'/'+ fileName, function (err,data) {
-        res.contentType("application/pdf");
-        res.send(data);
-    })
+    var fileName;
+    getFilename(issueNumber, (name)=> {
+        fileName = name;
+        fs.readFile(comicPath+'/'+ fileName, function (err,data) {
+            res.contentType("application/pdf");
+            res.send(data);
+        })
+    });
+
 
 })
 
