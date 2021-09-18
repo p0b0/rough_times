@@ -39,58 +39,95 @@
 
 
     <div class="row mt-5" >
-        <div class="col-6 offset-3">
-           <h1>Test comic title</h1>
-<!--           <a href='/comic'> comic book </a>-->
+        <div class="col-6 offset-3" id="comicTitle">
+           <h1 id="title">Test comic title</h1>
         </div>
     </div>
 
+<!--    <div class="shadow-lg p-3 mb-5 bg-white rounded"></div>-->
+
 
     <div class="row">
-        <div class="col-md-4 offset-md-4">
+        <div class="col-md-4 offset-md-2">
 
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="shadow-lg p-3 mb-5 bg-white rounded">
+            <div id="comicCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
+                    <div class="carousel-item active" id="carouselOne">
                         <a href='/comic/one' target="_blank">  <img src="https://preview.redd.it/3589isgqo6m21.jpg?width=2550&format=pjpg&auto=webp&s=cb4a008f43b6b44b7dc17f40c28309af1aec971f"  class="d-block w-100 rounded" style="width: 150px; height: 350px">  </a>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" id="carouselTwo">
                         <a href='/comic/two'  target="_blank">  <img src="https://cdn.pixabay.com/photo/2015/05/03/15/09/margarite-751276_960_720.jpg" class="d-block w-100 rounded" style="width: 150px; height: 350px"></a>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" id="carouselThree">
                         <a href='/comic/three' target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Red_rose.jpg/220px-Red_rose.jpg"  class="d-block w-100 rounded" style="width: 150px; height: 350px"></a>
                     </div>
                 </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#comicCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#comicCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-
+<!--            closes col-md-4 offset-4-->
         </div>
 
+        <div class="col-md-4" id="comicDescription">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur autem dignissimos, eaque earum incidunt ipsam ipsum laboriosam maxime molestiae necessitatibus, nostrum omnis possimus provident quidem vitae voluptates! Laborum, natus.</p>
+        </div>
 
     </div>
 
-    <span class="border border-primary">
-    <div>
-        <h5> Test image </h5>
+<!--    testing borders and image styling-->
+<!--    <div>-->
+<!--        <h5> Test image </h5>-->
+<!--    <span class="border border-2 border-primary" style="height:200px;  width: 200px; ">-->
+<!--        <img src="https://preview.redd.it/3589isgqo6m21.jpg?width=2550&format=pjpg&auto=webp&s=cb4a008f43b6b44b7dc17f40c28309af1aec971f" style="height: 200px; width: 200px">-->
+<!--    </span>-->
+<!--    </div>-->
 
-        <img src="https://preview.redd.it/3589isgqo6m21.jpg?width=2550&format=pjpg&auto=webp&s=cb4a008f43b6b44b7dc17f40c28309af1aec971f" style="height: 200px; width: 200px">
 
     </div>
 
-
+<div>
 
 </div>
 
 
-
     </body>
+
+<script>
+
+var carouselOne = document.getElementById('carouselOne');
+var carouselTwo = document.getElementById('carouselTwo');
+var carouselThree = document.getElementById('carouselThree');
+
+var title = document.getElementById('title');
+
+//checking
+title.addEventListener('click',()=>{
+
+    if ( carouselOne.classList.contains('active')) {
+        alert('one');
+    }
+    else if ( carouselTwo.classList.contains('active') ) {
+        alert('two');
+    }
+    else if (carouselThree.classList.contains('active')) {
+        alert('three');
+    }
+
+})
+
+
+
+//not working
+// var comicCarousel = document.getElementById('comicCarousel');
+// comicCarousel.carousel({interval: false});
+
+</script>
 </html>

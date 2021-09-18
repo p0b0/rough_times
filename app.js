@@ -6,10 +6,13 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 var fs = require('fs');
 var path = require('path');
+var comicData = require('./public/comicData');
 // var puppeteer = require('puppeteer');
 // const PDFJS = require('pdfjs-dist');
 // const utils = require('./util/utils');
 
+
+var comicData = comicData.comicData;
 
 // const host = process.env.TR_HOST;
 // const port = process.env.TR_PORT;
@@ -75,7 +78,7 @@ app.get("/" , async(req, res)=> {
 })
 
 app.get("/works", (req, res)=> {
-    res.render('works');
+    res.render('works', {comicData:comicData});
 })
 
 app.get("/about", (req, res)=> {
