@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 var fs = require('fs');
 var path = require('path');
+// var puppeteer = require('puppeteer');
 // const PDFJS = require('pdfjs-dist');
 // const utils = require('./util/utils');
 
@@ -69,7 +70,7 @@ app.use(
   })
 );
 
-app.get("/" , (req, res)=> {
+app.get("/" , async(req, res)=> {
     res.render('home');
 })
 
