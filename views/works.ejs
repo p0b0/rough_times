@@ -38,9 +38,9 @@
     </nav>
 
 
-    <div class="row mt-5" >
+    <div class="row mt-5 mb-4" >
         <div class="col-6 offset-3" id="comicTitle">
-           <h1 id="title">Test comic title</h1>
+           <h1 id="title"><%= comicData[0].title %></h1>
         </div>
     </div>
 
@@ -64,11 +64,11 @@
                     </div>
                 </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#comicCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#comicCarousel" data-bs-slide="prev" id="carouselPreviousButton">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#comicCarousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#comicCarousel" data-bs-slide="next" id="carouselNextButton">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
@@ -77,7 +77,7 @@
         </div>
 
         <div class="col-md-4" id="comicDescription">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur autem dignissimos, eaque earum incidunt ipsam ipsum laboriosam maxime molestiae necessitatibus, nostrum omnis possimus provident quidem vitae voluptates! Laborum, natus.</p>
+            <p> <%= comicData[0].description %> </p>
         </div>
 
     </div>
@@ -102,32 +102,46 @@
 
 <script>
 
-var carouselOne = document.getElementById('carouselOne');
-var carouselTwo = document.getElementById('carouselTwo');
-var carouselThree = document.getElementById('carouselThree');
 
+var comicData = <%- JSON.stringify(comicData) %>;
 var title = document.getElementById('title');
+var carousel = document.getElementById('comicCarousel');
+var description = document.getElementById('comicDescription');
 
-//checking
-title.addEventListener('click',()=>{
+
+
+carousel.addEventListener('slid.bs.carousel', ()=>{
+    var carouselOne = document.getElementById('carouselOne');
+    var carouselTwo = document.getElementById('carouselTwo');
+    var carouselThree = document.getElementById('carouselThree');
 
     if ( carouselOne.classList.contains('active')) {
-        alert('one');
+        // title.innerText = 'comic one title';
+        // description.innerText = 'comic one description - what is comic one about';
+        toggleDataAccordingToCarousel(0);
     }
     else if ( carouselTwo.classList.contains('active') ) {
-        alert('two');
+        // title.innerText = 'comic two title';
+        // description.innerText = 'comic two description - what is comic two about';
+        toggleDataAccordingToCarousel(1);
     }
     else if (carouselThree.classList.contains('active')) {
-        alert('three');
+        // title.innerText = 'comic three title';
+        // description.innerText = 'comic three description - what is comic three about';
+        toggleDataAccordingToCarousel(2);
     }
-
 })
 
 
+function toggleDataAccordingToCarousel(currentElement) {
+    title.innerText = comicData[currentElement].title;
+    description.innerText = comicData[currentElement].description;
+}
 
-//not working
-// var comicCarousel = document.getElementById('comicCarousel');
-// comicCarousel.carousel({interval: false});
+//checking
+// title.addEventListener('click',()=>{
+//     alert(comicData[0].id);
+// })
 
 </script>
 </html>
