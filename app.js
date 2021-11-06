@@ -5,38 +5,7 @@ const app = express();
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const PDFJS = require('pdfjs-dist');
-// const utils = require('./util/utils');
-
-
-const host = process.env.TR_HOST;
-const port = process.env.TR_PORT;
-const secure = process.env.TR_SEC;
-const user = process.env.TR_USER;
-const pass = process.env.TR_PASS;
-
-
-// still without tranfering mailer to utils
-
-const transporter = nodemailer.createTransport({
-    host: host,
-    port: port,
-    secure: secure, 
-    auth: {
-      user: user, 
-      pass: pass, 
-    },
-  });
-
-
-  transporter.verify(function(error, success) {
-    if (error) {
-      console.log(error.stack);
-    } else {
-      console.log("Server is ready to take our messages");
-    }
-  });
-
-
+const utils = require('./util/utils');
 
 
 app.set('view engine', 'ejs');
@@ -61,12 +30,16 @@ app.get("/about", (req, res)=> {
 
 
 app.get("/contact" , (req, res)=> {
-    res.render('contact')
+    //add
+    // var isMailEnabled = utils.isMailEnabled;
+    // res.render('contact', {isMailEnabled: isMailEnabled})
+    res.render('contact');
 })
 
 app.post("/contact" , (req, res)=> {
   
   const {message} = req.body;
+  var user = utils.user;
 
   const readyMessage = {
     from: user,
@@ -79,19 +52,10 @@ app.post("/contact" , (req, res)=> {
   utils.sendEmail(readyMessage, (err)=> {
     if (err) {
       res.send(err)
-    } 
+    }
     else {
       res.redirect("/works")
     }
-  })
-
-  transporter.sendMail(readyMessage, (err, suc)=>{
-      if (err) {
-          console.log(err)
-      } else {
-        console.log("message has been sent")
-      }
-    
   })
 
 })
